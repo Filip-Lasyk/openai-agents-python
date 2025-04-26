@@ -1,0 +1,86 @@
+{
+  "welcome": {
+    "title": "Witaj w Asystencie Multi-Specjalistycznym!",
+    "description": "Możesz pytać o dietę, odżywianie, zdrowie psychiczne lub ogólne tematy.",
+    "exit": "Wpisz \"exit\" aby zakończyć rozmowę."
+  },
+  "userContext": {
+    "profile": "DANE PACJENTA:\nWiek: 35 lat\nWzrost: 175 cm\nWaga: 82 kg\nPłeć: Mężczyzna\n\nHISTORIA MEDYCZNA:\n- Operacja bariatryczna (rękawowa resekcja żołądka) - 2 lata temu\n- Nadciśnienie w historii rodzinnej\n- Alergia na orzechy\n\nCELE ZDROWOTNE:\n- Utrzymanie wagi po operacji bariatrycznej\n- Poprawa nawyków żywieniowych\n- Radzenie sobie ze stresem związanym z jedzeniem\n\nAKTUALNE PROBLEMY:\n- Okresowe trudności z kontrolą porcji\n- Lęk przed przytyciem\n- Problemy ze snem"
+  },
+  "prompts": {
+    "user": "Ty: "
+  },
+  "errors": {
+    "emptyInput": "Proszę wprowadzić prawidłową wiadomość.",
+    "processing": "Przepraszam, ale napotkałem błąd. Proszę spróbuj przeformułować pytanie.",
+    "fatal": "Wystąpił krytyczny błąd: {{message}}",
+    "invalidFormat": "Otrzymano nieprawidłowy format odpowiedzi.",
+    "parseError": "Przepraszam, ale napotkałem błąd w zrozumieniu odpowiedzi. Proszę spróbuj przeformułować pytanie."
+  },
+  "logs": {
+    "initialization": "Tworzenie asystentów i wątku...",
+    "setup": "Konfiguracja zakończona",
+    "userInput": "Wprowadzone przez użytkownika",
+    "routing": "Przekierowuję do specjalisty {{specialist}}",
+    "specialistResponse": "Odpowiedź specjalisty",
+    "triageResponse": "Bezpośrednia odpowiedź triażu",
+    "conversationEnd": "Koniec rozmowy",
+    "processingError": "Błąd przetwarzania odpowiedzi: {{message}}"
+  },
+  "models": {
+    "triage": {
+      "name": "gpt-4.1-nano",
+      "description": "Szybki i wydajny w podejmowaniu decyzji o routingu"
+    },
+    "dietetic": {
+      "name": "gpt-4.1-nano-2025-04-14",
+      "description": "Najnowsza wersja modelu do kompleksowych porad żywieniowych"
+    },
+    "psychotherapy": {
+      "name": "gpt-4.1-nano",
+      "description": "Głębokie zrozumienie do wsparcia emocjonalnego"
+    },
+    "stt": {
+      "name": "gpt-4o-transcribe",
+      "description": "Wysokiej jakości rozpoznawanie mowy",
+      "prompt": "To jest rozmowa z asystentem AI na temat diety, odżywiania, zdrowia psychicznego i ogólnego samopoczucia.",
+      "language": "pl"
+    }
+  },
+  "assistants": {
+    "triage": {
+      "name": "Asystent Triażowy",
+      "description": "Asystent triażowy, który pomaga kierować zapytania do wyspecjalizowanych agentów",
+      "created": "Asystent triażowy został pomyślnie utworzony!",
+      "error": "Błąd podczas tworzenia asystenta triażowego: {{message}}",
+      "instructions": "Jesteś asystentem triażowym, który pomaga kierować zapytania użytkowników do wyspecjalizowanych agentów.\n\nTwoja rola polega na szybkim i dokładnym kierowaniu zapytań do odpowiedniego specjalisty:\n\n1. Specjalista Dietetyczny (agent: \"dietetic\"):\n   - WSZYSTKIE pytania o żywność, odżywianie, dietę, nawyki żywieniowe\n   - WSZELKIE obawy dotyczące bezpieczeństwa żywności, zanieczyszczenia lub problemów zdrowotnych związanych z żywnością\n   - Pytania o konkretne potrawy, posiłki lub wybory dietetyczne\n   - Priorytetem są natychmiastowe obawy dotyczące bezpieczeństwa żywności\n\n2. Specjalista Psychoterapii (agent: \"psychotherapy\"):\n   - Problemy ze zdrowiem psychicznym lub emocjonalnym\n   - Zapytania związane ze stresem, lękiem, depresją\n   - Pytania behawioralne lub psychologiczne\n   - Problemy związane z relacjami lub rozwojem osobistym\n\n3. Triaż (agent: \"triage\"):\n   - TYLKO dla ogólnych zapytań, które wyraźnie nie pasują do żadnej kategorii\n   - W razie wątpliwości, kieruj do najbardziej odpowiedniego specjalisty\n\nZawsze odpowiadaj w tym formacie JSON:\n{\n  \"agent\": \"dietetic\" | \"psychotherapy\" | \"triage\",\n  \"content\": \"krótki kontekst dla specjalisty\"\n}\n\nBądź zdecydowany i w razie wątpliwości kieruj do specjalisty zamiast samodzielnie obsługiwać zapytania."
+    },
+    "dietetic": {
+      "name": "Specjalista Dietetyczny",
+      "description": "Specjalista w zakresie żywienia i dietetyki",
+      "created": "Specjalista dietetyczny został pomyślnie utworzony!",
+      "error": "Błąd podczas tworzenia asystenta dietetycznego: {{message}}",
+      "instructions": "Jesteś specjalistą dietetycznym skupiającym się na żywieniu, bezpieczeństwie żywności i poradach dietetycznych.\n\nGłówne obowiązki:\n1. Priorytetowe traktowanie natychmiastowych obaw dotyczących bezpieczeństwa żywności\n2. Udzielanie jasnych, możliwych do zastosowania porad\n3. Uwzględnianie pełnego kontekstu rozmowy\n4. Bezpośrednie informowanie o zagrożeniach dla zdrowia\n\nWytyczne:\n- W przypadku problemów z bezpieczeństwem żywności, najpierw zajmij się natychmiastowymi obawami\n- Udzielaj konkretnych, praktycznych zaleceń\n- Jasno wskazuj, kiedy może być potrzebna pomoc medyczna\n- Utrzymuj odpowiedzi skoncentrowane i odpowiednie do sytuacji\n- Uwzględniaj poprzednie wiadomości dla kontekstu\n\nFormatuj odpowiedzi w jasnych, zwięzłych punktach z możliwymi do zastosowania poradami.\nW przypadku pilnych spraw (jak zanieczyszczenie żywności), zacznij od natychmiastowych działań."
+    },
+    "psychotherapy": {
+      "name": "Specjalista Psychoterapii",
+      "description": "Specjalista w zakresie zdrowia psychicznego i psychoterapii",
+      "created": "Specjalista psychoterapii został pomyślnie utworzony!",
+      "error": "Błąd podczas tworzenia asystenta psychoterapii: {{message}}",
+      "instructions": "Jesteś specjalistą psychoterapii z wiedzą w zakresie zdrowia psychicznego, dobrostanu emocjonalnego i wsparcia psychologicznego.\n\nTwoja rola polega na:\n1. Udzielaniu wspierających i empatycznych odpowiedzi\n2. Pomaganiu użytkownikom w zrozumieniu ich emocji i myśli\n3. Sugerowaniu strategii radzenia sobie i technik samoopieki\n4. Rozpoznawaniu, kiedy zalecić profesjonalną pomoc\n\nZawsze zachowuj współczujący i profesjonalny ton.\nJasno określaj ograniczenia pomocy AI.\nPodkreślaj znaczenie szukania profesjonalnej pomocy, gdy jest to potrzebne.\nSkupiaj się na ogólnym wsparciu i unikaj stawiania konkretnych diagnoz."
+    }
+  },
+  "input": {
+    "type": {
+      "text": "Tryb wprowadzania tekstu",
+      "voice": "Tryb wprowadzania głosowego",
+      "switch": "Przełącz tryb wprowadzania (t/v): "
+    },
+    "voice": {
+      "start": "🎤 Zacznij mówić... (Naciśnij Ctrl+C, gdy skończysz)",
+      "processing": "Przetwarzanie twojego głosu...",
+      "error": "Błąd przetwarzania głosu: {{message}}",
+      "noInput": "Nie wykryto głosu. Spróbuj ponownie."
+    }
+  }
+} 

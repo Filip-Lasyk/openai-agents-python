@@ -1,0 +1,13 @@
+{
+  "recording": {
+    "start": "🎤 Recording... (Press Ctrl+C to stop)",
+    "complete": "✅ Recording complete",
+    "volumeWarning": "⚠️ Warning: Volume too high",
+    "error": "❌ Recording error: {{error}}",
+    "interrupted": "⚠️ Recording interrupted by user",
+    "failed": "❌ Recording failed with code {{code}}"
+  },
+  "transcription": {
+    "error": "❌ Transcription error: {{error}}"
+  }
+} 

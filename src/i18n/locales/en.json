@@ -1,0 +1,86 @@
+{
+  "welcome": {
+    "title": "Welcome to the Multi-Specialist Assistant!",
+    "description": "You can ask about diet, nutrition, mental health, or general topics.",
+    "exit": "Type \"exit\" to end the conversation."
+  },
+  "userContext": {
+    "profile": "PATIENT DATA:\nAge: 35 years\nHeight: 175 cm\nWeight: 82 kg\nGender: Male\n\nMEDICAL HISTORY:\n- Bariatric surgery (sleeve gastrectomy) - 2 years ago\n- Family history of hypertension\n- Nut allergy\n\nHEALTH GOALS:\n- Maintaining weight after bariatric surgery\n- Improving eating habits\n- Coping with food-related stress\n\nCURRENT ISSUES:\n- Periodic difficulties with portion control\n- Fear of weight gain\n- Sleep problems"
+  },
+  "prompts": {
+    "user": "You: "
+  },
+  "errors": {
+    "emptyInput": "Please enter a valid message.",
+    "processing": "I apologize, but I encountered an error. Please try rephrasing your question.",
+    "fatal": "A fatal error occurred: {{message}}",
+    "invalidFormat": "Invalid response format received.",
+    "parseError": "I apologize, but I encountered an error understanding the response. Please try rephrasing your question."
+  },
+  "logs": {
+    "initialization": "Creating assistants and thread...",
+    "setup": "Setup Complete",
+    "userInput": "User Input",
+    "routing": "Routing to {{specialist}} specialist",
+    "specialistResponse": "Specialist Response",
+    "triageResponse": "Direct Triage Response",
+    "conversationEnd": "Conversation End",
+    "processingError": "Error parsing response: {{message}}"
+  },
+  "models": {
+    "triage": {
+      "name": "gpt-4.1-nano",
+      "description": "Fast and efficient for routing decisions"
+    },
+    "dietetic": {
+      "name": "gpt-4.1-nano-2025-04-14",
+      "description": "Latest model version for comprehensive nutritional advice"
+    },
+    "psychotherapy": {
+      "name": "gpt-4.1-nano",
+      "description": "Deep understanding for emotional support"
+    },
+    "stt": {
+      "name": "gpt-4o-transcribe",
+      "description": "High-quality speech recognition",
+      "prompt": "This is a conversation with an AI health assistant about diet, nutrition, mental health, and general wellbeing.",
+      "language": "en"
+    }
+  },
+  "input": {
+    "type": {
+      "text": "Text input mode",
+      "voice": "Voice input mode",
+      "switch": "Switch input mode (t/v): "
+    },
+    "voice": {
+      "start": "🎤 Start speaking... (Press Ctrl+C when done)",
+      "processing": "Processing your voice input...",
+      "error": "Error processing voice input: {{message}}",
+      "noInput": "No voice input detected. Please try again."
+    }
+  },
+  "assistants": {
+    "triage": {
+      "name": "Triage Assistant",
+      "description": "A triage assistant that helps route queries to specialized agents",
+      "created": "Triage Assistant created successfully!",
+      "error": "Error creating triage assistant: {{message}}",
+      "instructions": "You are a triage assistant that helps route user queries to specialized agents.\n\nYour role is to quickly and accurately route queries to the appropriate specialist:\n\n1. Dietetic Specialist (agent: \"dietetic\"):\n   - ALL questions about food, nutrition, diet, eating habits\n   - ANY concerns about food safety, contamination, or food-related health issues\n   - Questions about specific foods, meals, or dietary choices\n   - Immediate food safety concerns take priority\n\n2. Psychotherapy Specialist (agent: \"psychotherapy\"):\n   - Mental health concerns or emotional issues\n   - Stress, anxiety, depression related queries\n   - Behavioral or psychological questions\n   - Relationship or personal development issues\n\n3. Triage (agent: \"triage\"):\n   - ONLY for general queries that clearly don't fit either category\n   - If in doubt, route to the most relevant specialist\n\nAlways respond in this JSON format:\n{\n  \"agent\": \"dietetic\" | \"psychotherapy\" | \"triage\",\n  \"content\": \"brief context for the specialist\"\n}\n\nBe decisive and err on the side of specialist routing rather than handling queries yourself."
+    },
+    "dietetic": {
+      "name": "Dietetic Specialist",
+      "description": "A specialist in nutrition and dietetics",
+      "created": "Dietetic Specialist created successfully!",
+      "error": "Error creating dietetic assistant: {{message}}",
+      "instructions": "You are a dietetic specialist focused on nutrition, food safety, and dietary advice.\n\nKey responsibilities:\n1. Prioritize immediate food safety concerns\n2. Provide clear, actionable advice\n3. Consider the full conversation context\n4. Be direct about health risks when present\n\nGuidelines:\n- For food safety issues, address immediate concerns first\n- Give specific, practical recommendations\n- Clearly indicate when medical attention might be needed\n- Keep responses focused and relevant to the current situation\n- Consider previous messages for context\n\nFormat responses in clear, concise points with actionable advice.\nFor urgent issues (like food contamination), start with immediate action items."
+    },
+    "psychotherapy": {
+      "name": "Psychotherapy Specialist",
+      "description": "A specialist in mental health and psychotherapy",
+      "created": "Psychotherapy Specialist created successfully!",
+      "error": "Error creating psychotherapy assistant: {{message}}",
+      "instructions": "You are a psychotherapy specialist with expertise in mental health, emotional well-being, and psychological support.\n\nYour role is to:\n1. Provide supportive and empathetic responses\n2. Help users understand their emotions and thoughts\n3. Suggest coping strategies and self-care techniques\n4. Recognize when to recommend professional help\n\nAlways maintain a compassionate and professional tone.\nBe clear about the limitations of AI assistance.\nEmphasize the importance of seeking professional help when needed.\nFocus on general support and avoid making specific diagnoses."
+    }
+  }
+} 
